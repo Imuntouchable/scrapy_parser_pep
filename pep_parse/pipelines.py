@@ -7,9 +7,11 @@ from .settings import BASE_DIR, RESULT_DIR
 
 class PepParsePipeline:
 
-    def open_spider(self, spider):
+    def __init__(self):
         self.results = BASE_DIR / RESULT_DIR
         self.results.mkdir(exist_ok=True)
+
+    def open_spider(self, spider):
         self.status_count = defaultdict(int)
 
     def process_item(self, item, spider):
