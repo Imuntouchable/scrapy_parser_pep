@@ -1,6 +1,11 @@
+from pathlib import Path
+
+BASE_DIR = Path(__file__).absolute().parent.parent
+RESULT_DIR = 'results'
 BOT_NAME = 'pep_parse'
-SPIDER_MODULES = ['pep_parse.spiders']
-NEWSPIDER_MODULE = 'pep_parse.spiders'
+SPIDER_MODULE_PATH = 'pep_parse.spiders'
+SPIDER_MODULES = [SPIDER_MODULE_PATH]
+NEWSPIDER_MODULE = SPIDER_MODULE_PATH
 ROBOTSTXT_OBEY = True
 FEEDS = {
     'results/pep_%(time)s.csv': {
