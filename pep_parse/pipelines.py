@@ -7,10 +7,6 @@ from .settings import BASE_DIR, RESULT_DIR
 
 class PepParsePipeline:
 
-    def __init__(self):
-        self.results = BASE_DIR / RESULT_DIR
-        self.results.mkdir(exist_ok=True)
-
     def open_spider(self, spider):
         self.status_count = defaultdict(int)
 
@@ -19,6 +15,8 @@ class PepParsePipeline:
         return item
 
     def close_spider(self, spider):
+        self.results = BASE_DIR / RESULT_DIR
+        self.results.mkdir(exist_ok=True)
         timestamp = time.strftime('%Y-%m-%dT%H-%M-%S')
         file_path = self.results / f'status_summary_{timestamp}.csv'
         rows = [(status, count) for status, count in self.status_count.items()]
