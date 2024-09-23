@@ -19,9 +19,11 @@ class PepParsePipeline:
         self.results.mkdir(exist_ok=True)
         timestamp = time.strftime('%Y-%m-%dT%H-%M-%S')
         file_path = self.results / f'status_summary_{timestamp}.csv'
-        rows = [(status, count) for status, count in self.status_count.items()]
-        rows.append(('Total', sum(self.status_count.values())))
         with open(file_path, mode='w', encoding='utf-8', newline='') as f:
+            rows = (
+                ('Статус', 'Количество'),
+                *self.status_count.items(),
+                ('Всего', sum(self.status_count.values()))
+            )
             writer = csv.writer(f)
-            writer.writerow(['Статус', 'Количество'])
             writer.writerows(rows)
